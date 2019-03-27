@@ -27,7 +27,7 @@ import project.as224qc.dv606.slcommuter.model.TripDTO;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter
  */
-public class TripDetailActivity extends AppCompatActivity {
+public class TripDetailActivity extends BaseActivity {
 
     public static final String BUNDLE_DATA_TRIP = "BUNDLE_DATA.trip";
     public static final String BUNDLE_ORIGIN = "BUNDLE_DATA.origin";

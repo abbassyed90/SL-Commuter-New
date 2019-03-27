@@ -17,7 +17,7 @@ import project.as224qc.dv606.slcommuter.fragment.DeviationFragment;
 import project.as224qc.dv606.slcommuter.fragment.RealTimeFragment;
 import project.as224qc.dv606.slcommuter.fragment.TravelFragment;
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class HomeActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     private List<Fragment> fragments;
 
@@ -27,8 +27,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        initStatusBar();
 
         fragments = new ArrayList<>();
         fragments.add(TravelFragment.getInstance());
@@ -64,15 +62,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
             showFragment(fragments.get(2)); return true;
         }
         return false;
-    }
-
-    public void initStatusBar(){
-        Window window = getWindow();
-
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimaryDark));
-        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimaryDark));
     }
 
     /**

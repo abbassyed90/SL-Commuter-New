@@ -16,7 +16,7 @@ import project.as224qc.dv606.slcommuter.model.DeviationDTO;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter
  */
-public class DeviationDetailActivity extends AppCompatActivity {
+public class DeviationDetailActivity extends BaseActivity {
 
     public static final String BUNDLE_DATA_DEVIATION = "bundle_data.deviation";
 

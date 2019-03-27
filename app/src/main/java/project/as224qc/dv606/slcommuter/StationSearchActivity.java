@@ -31,7 +31,7 @@ import static project.as224qc.dv606.slcommuter.R.id.recyclerview;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter
  */
-public class StationSearchActivity extends AppCompatActivity {
+public class StationSearchActivity extends BaseActivity {
 
     public static final String SELECTED_STATION = "station.selected";
     public static final String VIEW_ID = "view.id";
