@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 import project.as224qc.dv606.slcommuter.fragment.DeviationFragment;
 import project.as224qc.dv606.slcommuter.fragment.RealTimeFragment;
-import project.as224qc.dv606.slcommuter.fragment.SubscribedDeviationsFragment;
 import project.as224qc.dv606.slcommuter.fragment.TravelFragment;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,7 +36,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         fragments.add(new TravelFragment());
         fragments.add(new RealTimeFragment());
         fragments.add(new DeviationFragment());
-        fragments.add(new SubscribedDeviationsFragment());
 
         // show travel fragment as first screen
         showFragment(fragments.get(0));
@@ -105,9 +103,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             return true;
         } else if (item.getItemId() == R.id.deviations) {
             showFragment(fragments.get(2));
-            return true;
-        } else if (item.getItemId() == R.id.subscribeddeviations) {
-            showFragment(fragments.get(3));
             return true;
         } else if (item.getItemId() == R.id.settings) {
             Intent intent = new Intent(this, PreferenceActivity.class);

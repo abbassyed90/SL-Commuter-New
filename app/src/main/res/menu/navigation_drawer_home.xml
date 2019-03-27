@@ -22,17 +22,6 @@
     </group>
 
     <group
-        android:id="@+id/group_deviations"
-        android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/subscribeddeviations"
-            android:checkable="false"
-            android:title="@string/navigation_drawer_title_subscribed_deviations" />
-
-    </group>
-
-    <group
         android:id="@+id/group_settings"
         android:checkableBehavior="single">
 
