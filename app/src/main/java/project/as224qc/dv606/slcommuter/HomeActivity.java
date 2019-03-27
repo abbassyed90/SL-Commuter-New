@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         fragments.add(RealTimeFragment.getInstance());
         fragments.add(DeviationFragment.getInstance());
 
-        bottomNavigationView = (BottomNavigationView)
+        bottomNavigationView =
                 findViewById(R.id.bottomNavigationView);
 
         // show travel fragment as first screen

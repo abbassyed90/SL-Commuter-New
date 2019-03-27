@@ -42,10 +42,10 @@ public class Constants {
      * Sl api keys
      */
     public static class API_KEYS {
-        public static final String DEVIATION_API_KEY = "1e43464a602a4005bd852f5ef82e61cc";
-        public static final String TRAVEL_PLANNER_API_KEY = "1e4567ade03b4c1aab5e6c305fc8c153";
-        public static final String STATION_LOOK_UP_API_KEY = "ee64536dc99646468982a84f868e34e3";
-        public static final String REAL_TIME_API_KEY = "8370e42e6fad4f098744aadee0f3d67c";
+        public static final String DEVIATION_API_KEY = "af69da0f89304a53864afc4a3da02bfd";
+        public static final String TRAVEL_PLANNER_API_KEY = "82e0bba23b0148968d6ab8fef0136df6";
+        public static final String STATION_LOOK_UP_API_KEY = "b84130cf226e479ca8965df47e908423";
+        public static final String REAL_TIME_API_KEY = "2403b5e961894eebb4ce37da067f278e";
     }
 
     /**
