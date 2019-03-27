@@ -104,9 +104,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (item.getItemId() == R.id.deviations) {
             showFragment(fragments.get(2));
             return true;
-        } else if (item.getItemId() == R.id.settings) {
-            Intent intent = new Intent(this, PreferenceActivity.class);
-            startActivity(intent);
         }
         return false;
     }

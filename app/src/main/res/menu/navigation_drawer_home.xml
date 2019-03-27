@@ -21,16 +21,5 @@
 
     </group>
 
-    <group
-        android:id="@+id/group_settings"
-        android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/settings"
-            android:checkable="false"
-            android:title="@string/navigation_drawer_title_settings" />
-
-    </group>
-
 
 </menu>
