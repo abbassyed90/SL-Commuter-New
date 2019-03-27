@@ -41,8 +41,6 @@
 
         <service android:name=".DeviationService" />
 
-        <receiver android:name=".AlarmReceiver" />
-
     </application>
 
 </manifest>

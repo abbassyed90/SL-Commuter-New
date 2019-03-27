@@ -93,8 +93,6 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
         initEmptyState(view);
         initRecyclerView(view, emptyState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(Utils.getInstance().createToolbarTitle(getString(R.string.title_planed_trip)));
-
         // init views
         searchBarFrom = (EditText) view.findViewById(R.id.searchBarFrom);
         searchBarToo = (EditText) view.findViewById(R.id.searchBarToo);

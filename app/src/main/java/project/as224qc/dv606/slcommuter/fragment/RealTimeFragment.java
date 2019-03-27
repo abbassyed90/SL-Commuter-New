@@ -78,8 +78,6 @@ public class RealTimeFragment extends Fragment implements View.OnClickListener {
         initEmptyState(emptyState);
         initRecyclerView(view, emptyState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(Utils.getInstance().createToolbarTitle(getString(R.string.title_real_time)));
-
         searchBar = (EditText) view.findViewById(R.id.searchBar);
         searchButton = (TextView) view.findViewById(R.id.searchButton);
     }

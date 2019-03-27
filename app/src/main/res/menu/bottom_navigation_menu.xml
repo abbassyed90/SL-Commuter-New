@@ -7,16 +7,19 @@
         <item
             android:id="@+id/trip"
             android:checked="false"
+            android:icon="@drawable/ic_directions_walk_black_24dp"
             android:title="@string/navigation_drawer_title_plan_trip" />
 
         <item
             android:id="@+id/realtime"
             android:checked="false"
+            android:icon="@drawable/ic_schedule_black_24dp"
             android:title="@string/navigation_drawer_title_real_time" />
 
         <item
             android:id="@+id/deviations"
             android:checked="false"
+            android:icon="@drawable/ic_warning_black_24dp"
             android:title="@string/navigation_drawer_title_deviations" />
 
     </group>

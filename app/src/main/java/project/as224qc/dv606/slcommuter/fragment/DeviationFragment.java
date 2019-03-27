@@ -76,8 +76,6 @@ public class DeviationFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(Utils.getInstance().createToolbarTitle(getString(R.string.title_deviation)));
-
         // init empty state and empty state helper
         View emptyState = ((ViewStub) view.findViewById(R.id.viewStub)).inflate();
         emptyStateHelper = new EmptyStateHelper(emptyState);
