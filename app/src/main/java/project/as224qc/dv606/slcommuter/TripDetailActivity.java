@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 import project.as224qc.dv606.slcommuter.adapter.LegAdapter;
 import project.as224qc.dv606.slcommuter.model.Leg;
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.model.TripDTO;
 
 /**
@@ -50,8 +49,8 @@ public class TripDetailActivity extends BaseActivity {
         // get trip from bundle
         trip = getIntent().getParcelableExtra(BUNDLE_DATA_TRIP);
         legs = trip.getLegs();
-        StationDTO origin = getIntent().getParcelableExtra(BUNDLE_ORIGIN);
-        StationDTO destination = getIntent().getParcelableExtra(BUNDLE_DESTINATION);
+        Site origin = getIntent().getParcelableExtra(BUNDLE_ORIGIN);
+        Site destination = getIntent().getParcelableExtra(BUNDLE_DESTINATION);
 
         initToolbar(origin, destination);
 
@@ -135,7 +134,7 @@ public class TripDetailActivity extends BaseActivity {
      * @param origin
      * @param destination
      */
-    private void initToolbar(StationDTO origin, StationDTO destination) {
+    private void initToolbar(Site origin, Site destination) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(origin.getName());
         toolbar.setSubtitle(destination.getName());

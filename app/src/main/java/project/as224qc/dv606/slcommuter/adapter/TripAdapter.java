@@ -43,11 +43,13 @@ public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (getItemViewType(viewType) == TRIP) {
             TripViewHolder tripViewHolder = new TripViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_trip, parent, false));
-            tripViewHolder.itemView.setOnClickListener(new OnItemClickListener(tripViewHolder));
+            // TODO fix this
+            //tripViewHolder.itemView.setOnClickListener(new OnItemClickListener(tripViewHolder));
             return tripViewHolder;
         } else {
             PreviousViewHolder previousViewHolder = new PreviousViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_previous_trip, parent, false));
-            previousViewHolder.itemView.setOnClickListener(new OnItemClickListener(previousViewHolder));
+            // TODO fix this
+            //previousViewHolder.itemView.setOnClickListener(new OnItemClickListener(previousViewHolder));
             return previousViewHolder;
         }
     }

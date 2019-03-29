@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import project.as224qc.dv606.slcommuter.model.DeviationDTO;
 import project.as224qc.dv606.slcommuter.model.PreviousTrip;
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.model.Subscription;
 import project.as224qc.dv606.slcommuter.model.integration.SQLiteDeviation;
 import project.as224qc.dv606.slcommuter.model.integration.SQLitePreviousTrip;
@@ -34,12 +34,12 @@ public class SQLiteController {
     }
 
     /**
-     * Insert a station
+     * Insert a site
      *
-     * @param station
+     * @param site
      */
-    public void insertStation(StationDTO station) {
-        sqLiteStation.insertStation(station);
+    public void insertStation(Site site) {
+        sqLiteStation.insertStation(site);
     }
 
     /**
@@ -47,7 +47,7 @@ public class SQLiteController {
      *
      * @return
      */
-    public ArrayList<StationDTO> getStations() {
+    public ArrayList<Site> getStations() {
         return sqLiteStation.getStations();
     }
 
@@ -57,7 +57,7 @@ public class SQLiteController {
      * @param origin
      * @param destination
      */
-    public void insertTrip(StationDTO origin, StationDTO destination) {
+    public void insertTrip(Site origin, Site destination) {
         sqLitePreviousTrip.insertTrip(origin, destination);
     }
 

@@ -9,18 +9,18 @@ import com.google.gson.annotations.SerializedName;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter.model
  */
-public class StationDTO implements Parcelable {
+public class Site implements Parcelable {
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<StationDTO> CREATOR = new Parcelable.Creator<StationDTO>() {
+    public static final Parcelable.Creator<Site> CREATOR = new Parcelable.Creator<Site>() {
         @Override
-        public StationDTO createFromParcel(Parcel in) {
-            return new StationDTO(in);
+        public Site createFromParcel(Parcel in) {
+            return new Site(in);
         }
 
         @Override
-        public StationDTO[] newArray(int size) {
-            return new StationDTO[size];
+        public Site[] newArray(int size) {
+            return new Site[size];
         }
     };
     @SerializedName("Name")
@@ -28,15 +28,19 @@ public class StationDTO implements Parcelable {
     @SerializedName("SiteId")
     private int siteId;
 
-    public StationDTO() {
+    public Site() {}
+
+    public Site(Site site) {
+        this.setName(site.getName());
+        this.setSiteId(site.getSiteId());
     }
 
-    public StationDTO(String name, int siteId) {
+    public Site(String name, int siteId) {
         this.setName(name);
         this.setSiteId(siteId);
     }
 
-    protected StationDTO(Parcel in) {
+    protected Site(Parcel in) {
         name = in.readString();
         siteId = in.readInt();
     }
@@ -73,12 +77,12 @@ public class StationDTO implements Parcelable {
         dest.writeInt(siteId);
     }
 
-    public StationDTO copy() {
-        StationDTO stationDTO = new StationDTO();
+    public Site copy() {
+        Site site = new Site();
 
-        stationDTO.setName(name);
-        stationDTO.setSiteId(siteId);
+        site.setName(name);
+        site.setSiteId(siteId);
 
-        return stationDTO;
+        return site;
     }
 }

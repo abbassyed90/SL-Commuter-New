@@ -9,7 +9,7 @@ import project.as224qc.dv606.slcommuter.DeviationDetailActivity;
 import project.as224qc.dv606.slcommuter.StationSearchActivity;
 import project.as224qc.dv606.slcommuter.TripDetailActivity;
 import project.as224qc.dv606.slcommuter.model.DeviationDTO;
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.model.TripDTO;
 
 /**
@@ -62,7 +62,7 @@ public class IntentHelper {
      * @param origin
      * @param destination
      */
-    public static void startTripDetailActivity(Context context, TripDTO trip, StationDTO origin, StationDTO destination) {
+    public static void startTripDetailActivity(Context context, TripDTO trip, Site origin, Site destination) {
         Intent intent = new Intent(context, TripDetailActivity.class);
         intent.putExtra(TripDetailActivity.BUNDLE_DATA_TRIP, trip);
         intent.putExtra(TripDetailActivity.BUNDLE_ORIGIN, origin);

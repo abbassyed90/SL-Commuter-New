@@ -60,7 +60,7 @@
     <!-- empty state titles -->
     <string name="empty.state.title.plantrip">Search for a trip</string>
     <string name="empty.state.title.timetable">Search for departures</string>
-    <string name="empty.state.title.station">Search for a station</string>
+    <string name="empty.state.title.site">Search for a site</string>
     <string name="empty_state_title_network_error">Server is down :(, try again later</string>
 
     <!-- dialog titles -->
@@ -74,9 +74,9 @@
     <string name="notification_new_deviations" formatted="false">%s new deviations</string>
 
     <!-- errors -->
-    <string name="error_no_station_selected">Please select station/s</string>
+    <string name="error_no_station_selected">Please select site/s</string>
     <string name="error_field_empty">Field is empty</string>
-    <string name="error_same_station">You have selected the same station</string>
+    <string name="error_same_station">You have selected the same site</string>
 
     <!-- Preference -->
     <string name="preference_title_notification">Notification</string>

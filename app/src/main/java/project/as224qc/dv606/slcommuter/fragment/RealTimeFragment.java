@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +21,10 @@ import project.as224qc.dv606.slcommuter.R;
 import project.as224qc.dv606.slcommuter.StationSearchActivity;
 import project.as224qc.dv606.slcommuter.adapter.RealTimeAdapter;
 import project.as224qc.dv606.slcommuter.event.TimeEvent;
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.util.Constants;
 import project.as224qc.dv606.slcommuter.util.EmptyStateHelper;
 import project.as224qc.dv606.slcommuter.util.IntentHelper;
-import project.as224qc.dv606.slcommuter.util.Utils;
 import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
 
 
@@ -38,7 +36,7 @@ import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
  */
 public class RealTimeFragment extends Fragment implements View.OnClickListener {
 
-    private StationDTO selectedStation = null;
+    private Site selectedSite = null;
 
     private EmptyStateHelper emptyStateHelper;
     private RealTimeAdapter adapter;
@@ -135,8 +133,8 @@ public class RealTimeFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.RequestCode.STATION_SEARCH && data != null) {
-            selectedStation = data.getParcelableExtra(StationSearchActivity.SELECTED_STATION);
-            searchBar.setText(selectedStation.getName());
+            selectedSite = data.getParcelableExtra(StationSearchActivity.SELECTED_STATION);
+            searchBar.setText(selectedSite.getName());
         }
     }
 
@@ -170,8 +168,8 @@ public class RealTimeFragment extends Fragment implements View.OnClickListener {
      * Make call to server to fetch data
      */
     private void search() {
-        if (selectedStation != null) {
-            ApiService.getInstance().realTimeInformation(selectedStation, 10);
+        if (selectedSite != null) {
+            ApiService.getInstance().realTimeInformation(selectedSite, 10);
 
             adapter.getTransportations().clear();
             adapter.getItems().clear();

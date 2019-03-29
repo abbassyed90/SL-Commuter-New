@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.util.Constants;
 
 /**
@@ -45,18 +45,18 @@ public class SQLiteStation extends SQLiteOpenHelper {
     }
 
     /**
-     * Insert a station into table
+     * Insert a site into table
      *
-     * @param station
+     * @param site
      */
-    public void insertStation(StationDTO station) {
+    public void insertStation(Site site) {
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(StationEntry.COLUMN_NAME, station.getName());
-            values.put(StationEntry.COLUMN_SITE_ID, station.getSiteId());
+            values.put(StationEntry.COLUMN_NAME, site.getName());
+            values.put(StationEntry.COLUMN_SITE_ID, site.getSiteId());
 
             db.insertOrThrow(StationEntry.TABLE_NAME, null, values);
 
@@ -74,8 +74,8 @@ public class SQLiteStation extends SQLiteOpenHelper {
      *
      * @return
      */
-    public ArrayList<StationDTO> getStations() {
-        ArrayList<StationDTO> stations = new ArrayList<>();
+    public ArrayList<Site> getStations() {
+        ArrayList<Site> sites = new ArrayList<>();
 
         String query = String.format("SELECT * FROM %s", StationEntry.TABLE_NAME);
 
@@ -84,14 +84,14 @@ public class SQLiteStation extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            stations.add(parseStation(cursor));
+            sites.add(parseStation(cursor));
             cursor.moveToNext();
         }
 
         cursor.close();
         db.close();
 
-        return stations;
+        return sites;
     }
 
     /**
@@ -107,13 +107,13 @@ public class SQLiteStation extends SQLiteOpenHelper {
      * @param cursor
      * @return
      */
-    public StationDTO parseStation(Cursor cursor) {
-        StationDTO station = new StationDTO();
+    public Site parseStation(Cursor cursor) {
+        Site site = new Site();
 
-        station.setName(cursor.getString(cursor.getColumnIndex(StationEntry.COLUMN_NAME)));
-        station.setSiteId(cursor.getInt(cursor.getColumnIndex(StationEntry.COLUMN_SITE_ID)));
+        site.setName(cursor.getString(cursor.getColumnIndex(StationEntry.COLUMN_NAME)));
+        site.setSiteId(cursor.getInt(cursor.getColumnIndex(StationEntry.COLUMN_SITE_ID)));
 
-        return station;
+        return site;
     }
 
     private static class StationEntry {

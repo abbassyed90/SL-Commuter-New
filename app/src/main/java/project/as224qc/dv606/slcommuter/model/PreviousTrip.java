@@ -6,27 +6,27 @@ package project.as224qc.dv606.slcommuter.model;
  */
 public class PreviousTrip extends Trip {
 
-    private StationDTO origin;
-    private StationDTO destination;
+    private Site origin;
+    private Site destination;
 
-    public PreviousTrip(StationDTO origin, StationDTO destination) {
+    public PreviousTrip(Site origin, Site destination) {
         this.origin = origin;
         this.destination = destination;
     }
 
-    public StationDTO getOrigin() {
+    public Site getOrigin() {
         return origin;
     }
 
-    public void setOrigin(StationDTO origin) {
+    public void setOrigin(Site origin) {
         this.origin = origin;
     }
 
-    public StationDTO getDestination() {
+    public Site getDestination() {
         return destination;
     }
 
-    public void setDestination(StationDTO destination) {
+    public void setDestination(Site destination) {
         this.destination = destination;
     }
 }

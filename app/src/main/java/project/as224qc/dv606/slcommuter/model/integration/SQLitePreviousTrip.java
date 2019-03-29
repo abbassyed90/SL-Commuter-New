@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import project.as224qc.dv606.slcommuter.model.PreviousTrip;
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.util.Constants;
 
 /**
@@ -51,7 +51,7 @@ public class SQLitePreviousTrip extends SQLiteOpenHelper {
      * @param origin
      * @param destination
      */
-    public void insertTrip(StationDTO origin, StationDTO destination) {
+    public void insertTrip(Site origin, Site destination) {
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
@@ -117,7 +117,7 @@ public class SQLitePreviousTrip extends SQLiteOpenHelper {
         String destinationName = cursor.getString(cursor.getColumnIndexOrThrow(PreviousEntry.COLUMN_DESTINATION_STATION_NAME));
         int destinationId = cursor.getInt(cursor.getColumnIndexOrThrow(PreviousEntry.COLUMN_DESTINATION_STATION_ID));
 
-        return new PreviousTrip(new StationDTO(originName, originId), new StationDTO(destinationName, destinationId));
+        return new PreviousTrip(new Site(originName, originId), new Site(destinationName, destinationId));
     }
 
     private static class PreviousEntry {

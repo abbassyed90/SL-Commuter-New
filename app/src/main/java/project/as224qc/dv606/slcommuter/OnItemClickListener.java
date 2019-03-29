@@ -3,8 +3,6 @@ package project.as224qc.dv606.slcommuter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import project.as224qc.dv606.slcommuter.event.OnItemClickEvent;
-
 /**
  * Helper class that is used in conjunction with
  * recyclerview adapters that adds on click events
@@ -13,24 +11,22 @@ import project.as224qc.dv606.slcommuter.event.OnItemClickEvent;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter
  */
-public class OnItemClickListener implements View.OnClickListener {
+public abstract class OnItemClickListener<T extends RecyclerView.ViewHolder> implements View.OnClickListener {
 
-    private int position = 0;
-    private RecyclerView.ViewHolder viewHolder;
+    private T viewHolder;
 
-    public OnItemClickListener(RecyclerView.ViewHolder viewHolder) {
+    public OnItemClickListener(T viewHolder) {
         this.viewHolder = viewHolder;
     }
 
     @Override
     public void onClick(View v) {
-        // get position of clicked view
         int adapterPosition = viewHolder.getAdapterPosition();
         if (adapterPosition != RecyclerView.NO_POSITION) {
-            this.position = adapterPosition;
+            onClickItem(adapterPosition, viewHolder);
         }
-
-        // post to event bus
-        EventBus.getInstance().post(new OnItemClickEvent(v, position));
     }
+
+    public abstract void onClickItem(int position, T viewHolder);
+
 }

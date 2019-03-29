@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/toolbar" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,19 +29,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false" />
 
-        <ViewStub
-            android:id="@+id/viewStub"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"/>
+
+        <LinearLayout
+            android:id="@+id/emptyStateView"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout="@layout/empty_state" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_station_search" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@string/font.regular.condensed"
+                android:fontFeatureSettings="smcp"
+                android:textColor="@color/grey"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:paddingLeft="@dimen/default_margin"
+                android:text="@string/empty.state.title.site" />
+
+        </LinearLayout>
     </FrameLayout>
-
 
 </LinearLayout>

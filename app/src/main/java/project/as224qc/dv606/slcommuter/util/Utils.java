@@ -33,4 +33,5 @@ public class Utils {
         spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ffffff")), 0, title.length(), 0);
         return spannableString;
     }
+
 }

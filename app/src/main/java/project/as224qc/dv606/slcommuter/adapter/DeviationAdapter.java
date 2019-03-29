@@ -34,7 +34,8 @@ public class DeviationAdapter extends RecyclerView.Adapter<DeviationAdapter.View
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_deviation, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.itemView.setOnClickListener(new OnItemClickListener(viewHolder));
+        // TODO fix this
+        //viewHolder.itemView.setOnClickListener(new OnItemClickListener(viewHolder));
 
         return viewHolder;
     }

@@ -1,6 +1,7 @@
 package project.as224qc.dv606.slcommuter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import project.as224qc.dv606.slcommuter.event.DeviationEvent;
-import project.as224qc.dv606.slcommuter.event.StationEvent;
+import project.as224qc.dv606.slcommuter.event.SiteEvent;
 import project.as224qc.dv606.slcommuter.event.TimeEvent;
 import project.as224qc.dv606.slcommuter.event.TripEvent;
 import project.as224qc.dv606.slcommuter.model.DeviationDTO;
@@ -23,7 +24,7 @@ import project.as224qc.dv606.slcommuter.model.Leg;
 import project.as224qc.dv606.slcommuter.model.RecyclerViewHeaderItem;
 import project.as224qc.dv606.slcommuter.model.RecyclerViewItem;
 import project.as224qc.dv606.slcommuter.model.RecyclerViewNormalItem;
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.model.TransportationDTO;
 import project.as224qc.dv606.slcommuter.model.TripDTO;
 import project.as224qc.dv606.slcommuter.util.Constants;
@@ -108,9 +109,6 @@ public class ApiService {
         if (input.isEmpty())
             return;
 
-        if (input.length() < 4)
-            return;
-
         String url = String.format(Constants.API.URL_STATIONS, Constants.API_KEYS.STATION_LOOK_UP_API_KEY, input);
 
         RestApiClient.get(url, null, new JsonHttpResponseHandler() {
@@ -122,17 +120,17 @@ public class ApiService {
                     JSONArray jsonArray = response.getJSONArray("ResponseData");
 
                     int length = jsonArray.length();
-                    ArrayList<StationDTO> sites = new ArrayList<>(length);
+                    ArrayList<Site> sites = new ArrayList<>(length);
                     for (int i = 0; i < length; i++) {
                         JSONObject jsonSite = jsonArray.getJSONObject(i);
 
                         // parse sites
-                        StationDTO site = gson.fromJson(jsonSite.toString(), StationDTO.class);
+                        Site site = gson.fromJson(jsonSite.toString(), Site.class);
                         sites.add(site);
                     }
 
                     // post data
-                    EventBus.getInstance().post(new StationEvent(sites));
+                    EventBus.getInstance().post(new SiteEvent(sites));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -142,12 +140,12 @@ public class ApiService {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 // post failure
-                EventBus.getInstance().post(new StationEvent());
+                EventBus.getInstance().post(new SiteEvent());
             }
         });
     }
 
-    public void realTimeInformation(StationDTO site, int timeWindow) {
+    public void realTimeInformation(Site site, int timeWindow) {
         String url = String.format(Constants.API.URL_REAL_TIME, Constants.API_KEYS.REAL_TIME_API_KEY, site.getSiteId(), timeWindow);
 
         RestApiClient.get(url, null, new JsonHttpResponseHandler() {
@@ -181,7 +179,7 @@ public class ApiService {
         });
     }
 
-    public void findTripNow(final Context context, StationDTO origin, StationDTO destination) {
+    public void findTripNow(final Context context, Site origin, Site destination) {
         String url = String.format(Constants.API.URL_TRIP, Constants.API_KEYS.TRAVEL_PLANNER_API_KEY, origin.getSiteId(), destination.getSiteId());
 
         RestApiClient.get(url, null, new JsonHttpResponseHandler() {

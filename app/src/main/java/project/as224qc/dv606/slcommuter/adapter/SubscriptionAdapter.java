@@ -24,7 +24,8 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_subscription, parent, false));
-        viewHolder.itemView.findViewById(R.id.deleteButton).setOnClickListener(new OnItemClickListener(viewHolder));
+        // TODO fix this
+        //viewHolder.itemView.findViewById(R.id.deleteButton).setOnClickListener(new OnItemClickListener(viewHolder));
         return viewHolder;
     }
 

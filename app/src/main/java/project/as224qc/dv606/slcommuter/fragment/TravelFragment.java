@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +28,12 @@ import project.as224qc.dv606.slcommuter.adapter.TripAdapter;
 import project.as224qc.dv606.slcommuter.event.OnItemClickEvent;
 import project.as224qc.dv606.slcommuter.event.TripEvent;
 import project.as224qc.dv606.slcommuter.model.PreviousTrip;
-import project.as224qc.dv606.slcommuter.model.StationDTO;
+import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.model.Trip;
 import project.as224qc.dv606.slcommuter.model.TripDTO;
 import project.as224qc.dv606.slcommuter.util.Constants;
 import project.as224qc.dv606.slcommuter.util.EmptyStateHelper;
 import project.as224qc.dv606.slcommuter.util.IntentHelper;
-import project.as224qc.dv606.slcommuter.util.Utils;
 import project.as224qc.dv606.slcommuter.widget.DividerItemDecoration;
 import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
 
@@ -49,8 +47,8 @@ import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
  */
 public class TravelFragment extends Fragment implements View.OnClickListener {
 
-    private StationDTO originStation = null;
-    private StationDTO destinationStation = null;
+    private Site originSite = null;
+    private Site destinationSite = null;
 
     private TripAdapter adapter;
 
@@ -148,13 +146,13 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
     public void onItemClickEvent(OnItemClickEvent event) {
         Trip trip = adapter.getTrips().get(event.getPosition());
         if (trip instanceof TripDTO) {
-            IntentHelper.startTripDetailActivity(getActivity(), (TripDTO) trip, originStation, destinationStation);
+            IntentHelper.startTripDetailActivity(getActivity(), (TripDTO) trip, originSite, destinationSite);
         } else {
             PreviousTrip previousTrip = (PreviousTrip) trip;
-            originStation = previousTrip.getOrigin();
-            destinationStation = previousTrip.getDestination();
-            searchBarFrom.setText(originStation.getName());
-            searchBarToo.setText(destinationStation.getName());
+            originSite = previousTrip.getOrigin();
+            destinationSite = previousTrip.getDestination();
+            searchBarFrom.setText(originSite.getName());
+            searchBarToo.setText(destinationSite.getName());
             findTrips();
         }
     }
@@ -182,14 +180,14 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.RequestCode.STATION_SEARCH && data != null) {
             int viewId = data.getIntExtra(StationSearchActivity.VIEW_ID, 0);
-            StationDTO selectedSite = data.getParcelableExtra(StationSearchActivity.SELECTED_STATION);
+            Site selectedSite = data.getParcelableExtra(StationSearchActivity.SELECTED_STATION);
             switch (viewId) {
                 case R.id.searchBarFrom:
-                    originStation = selectedSite;
+                    originSite = selectedSite;
                     searchBarFrom.setText(selectedSite.getName());
                     break;
                 case R.id.searchBarToo:
-                    destinationStation = selectedSite;
+                    destinationSite = selectedSite;
                     searchBarToo.setText(selectedSite.getName());
                     break;
             }
@@ -237,24 +235,24 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
      */
     private void findTrips() {
         // show toast if no stations have been selected
-        if (originStation == null || destinationStation == null) {
+        if (originSite == null || destinationSite == null) {
             Toast.makeText(getActivity(), getString(R.string.error_no_station_selected), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (originStation.getSiteId() == destinationStation.getSiteId()) {
+        if (originSite.getSiteId() == destinationSite.getSiteId()) {
             Toast.makeText(getActivity(), getString(R.string.error_same_station), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        ApiService.getInstance().findTripNow(getActivity(), originStation, destinationStation);
+        ApiService.getInstance().findTripNow(getActivity(), originSite, destinationSite);
 
         // show loading empty state
         adapter.getTrips().clear();
         adapter.notifyDataSetChanged();
         emptyStateHelper.showLoadingScreen(getActivity(), false);
 
-        new SaveTripTask().execute(new PreviousTrip(originStation, destinationStation));
+        new SaveTripTask().execute(new PreviousTrip(originSite, destinationSite));
     }
 
     /**
@@ -264,19 +262,19 @@ public class TravelFragment extends Fragment implements View.OnClickListener {
      */
     private void changeOrder() {
         // show toast if no stations have been selected
-        if (originStation == null || destinationStation == null) {
+        if (originSite == null || destinationSite == null) {
             Toast.makeText(getActivity(), getString(R.string.error_no_station_selected), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        StationDTO newOrigin = destinationStation.copy();
-        StationDTO newDestination = originStation.copy();
+        Site newOrigin = destinationSite.copy();
+        Site newDestination = originSite.copy();
 
-        originStation = newOrigin;
-        destinationStation = newDestination;
+        originSite = newOrigin;
+        destinationSite = newDestination;
 
-        searchBarFrom.setText(originStation.getName());
-        searchBarToo.setText(destinationStation.getName());
+        searchBarFrom.setText(originSite.getName());
+        searchBarToo.setText(destinationSite.getName());
     }
 
     /**
