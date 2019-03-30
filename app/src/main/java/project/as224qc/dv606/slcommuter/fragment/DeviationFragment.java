@@ -13,14 +13,18 @@ import android.view.ViewStub;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.List;
+
 import project.as224qc.dv606.slcommuter.ApiService;
 import project.as224qc.dv606.slcommuter.EventBus;
 import project.as224qc.dv606.slcommuter.R;
 import project.as224qc.dv606.slcommuter.adapter.DeviationAdapter;
+import project.as224qc.dv606.slcommuter.contract.DeviationContract;
 import project.as224qc.dv606.slcommuter.event.DeviationEvent;
 import project.as224qc.dv606.slcommuter.event.OnItemClickEvent;
 import project.as224qc.dv606.slcommuter.interfaces.OnClickDeviationListener;
 import project.as224qc.dv606.slcommuter.model.Deviation;
+import project.as224qc.dv606.slcommuter.presenter.DeviationPresenter;
 import project.as224qc.dv606.slcommuter.util.EmptyStateHelper;
 import project.as224qc.dv606.slcommuter.util.IntentHelper;
 import project.as224qc.dv606.slcommuter.util.Utils;
@@ -32,11 +36,13 @@ import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter.fragment
  */
-public class DeviationFragment extends Fragment implements OnClickDeviationListener {
+public class DeviationFragment extends Fragment implements DeviationContract.View,OnClickDeviationListener {
 
     private DeviationAdapter adapter;
     private ExtendedRecyclerView recyclerView;
     private EmptyStateHelper emptyStateHelper;
+
+    private DeviationPresenter presenter;
 
     public static DeviationFragment getInstance() {
         return new DeviationFragment();
@@ -46,7 +52,8 @@ public class DeviationFragment extends Fragment implements OnClickDeviationListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new DeviationAdapter();
-        ApiService.getInstance().getDeviations();
+        presenter = new DeviationPresenter(this);
+        presenter.fetchDeviations();
     }
 
     @Override
@@ -95,15 +102,26 @@ public class DeviationFragment extends Fragment implements OnClickDeviationListe
 
     @Subscribe
     public void deviationEvent(DeviationEvent event) {
-        if (event.isSuccess()) {
-            adapter.addDeviations(event.getDeviations());
-        } else {
-            emptyStateHelper.showNetworkErrorState(getActivity());
-        }
+        presenter.updateData(event);
     }
 
     @Override
     public void onClickDeviation(Deviation deviation) {
         IntentHelper.startDeviationDetailActivity(getActivity(),deviation);
+    }
+
+    @Override
+    public void displayProgressBar(boolean show) {
+        // TODO add progressbar
+    }
+
+    @Override
+    public void updateAdapter(List<Deviation> deviations) {
+        adapter.addDeviations(deviations);
+    }
+
+    @Override
+    public void displayNetworkError(boolean show) {
+        // TODO add network error state
     }
 }
