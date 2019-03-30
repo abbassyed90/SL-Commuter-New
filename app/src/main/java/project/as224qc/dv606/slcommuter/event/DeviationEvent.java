@@ -1,9 +1,8 @@
 package project.as224qc.dv606.slcommuter.event;
 
+import java.util.List;
 
-import java.util.ArrayList;
-
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 
 /**
  * @author Abbas Syed
@@ -11,18 +10,18 @@ import project.as224qc.dv606.slcommuter.model.DeviationDTO;
  */
 public class DeviationEvent extends BaseEvent {
 
-    private ArrayList<DeviationDTO> deviationDTOs;
+    private List<Deviation> deviations;
 
     public DeviationEvent() {
         setSuccess(false);
     }
 
-    public DeviationEvent(ArrayList<DeviationDTO> deviationDTOs) {
+    public DeviationEvent(List<Deviation> deviations) {
         setSuccess(true);
-        this.deviationDTOs = deviationDTOs;
+        this.deviations = deviations;
     }
 
-    public ArrayList<DeviationDTO> getDeviations() {
-        return deviationDTOs;
+    public List<Deviation> getDeviations() {
+        return deviations;
     }
 }

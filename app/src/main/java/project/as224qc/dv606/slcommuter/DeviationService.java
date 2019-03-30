@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import cz.msebera.android.httpclient.Header;
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 import project.as224qc.dv606.slcommuter.model.Subscription;
 import project.as224qc.dv606.slcommuter.util.Constants;
 
@@ -81,13 +81,13 @@ public class DeviationService extends IntentService {
                     SimpleDateFormat dateFormat = new SimpleDateFormat();
 
                     int length = jsonArray.length();
-                    ArrayList<DeviationDTO> deviations = new ArrayList<>(length);
+                    ArrayList<Deviation> deviations = new ArrayList<>(length);
 
                     for (int i = 0; i < length; i++) {
                         JSONObject jsonDeviation = jsonArray.getJSONObject(i);
 
                         // user gson to parse json
-                        DeviationDTO deviation = gson.fromJson(jsonDeviation.toString(), DeviationDTO.class);
+                        Deviation deviation = gson.fromJson(jsonDeviation.toString(), Deviation.class);
 
                         // parse date
                         long created = parseDate(jsonDeviation.getString("Created"), dateFormat);
@@ -118,18 +118,18 @@ public class DeviationService extends IntentService {
         });
     }
 
-    private void parseData(ArrayList<DeviationDTO> deviations) {
-        ArrayList<DeviationDTO> savedDeviations = SQLiteContext.getInstance().getController().getDeviations();
+    private void parseData(ArrayList<Deviation> deviations) {
+        ArrayList<Deviation> savedDeviations = SQLiteContext.getInstance().getController().getDeviations();
         removeOldDeviations(savedDeviations);
 
         // remove all deviations that have been saved
         if (savedDeviations.size() > 0) {
-            Iterator<DeviationDTO> iterator = deviations.iterator();
+            Iterator<Deviation> iterator = deviations.iterator();
             while (iterator.hasNext()) {
-                DeviationDTO deviation = iterator.next();
+                Deviation deviation = iterator.next();
 
                 for (int i = 0; i < savedDeviations.size(); i++) {
-                    DeviationDTO savedDeviation = savedDeviations.get(i);
+                    Deviation savedDeviation = savedDeviations.get(i);
                     if (deviation.getId() == savedDeviation.getId()) {
                         iterator.remove();
                     }
@@ -142,7 +142,7 @@ public class DeviationService extends IntentService {
         int newDeviations = 0;
         int count = deviations.size();
         for (int i = 0; i < count; i++) {
-            DeviationDTO deviation = deviations.get(i);
+            Deviation deviation = deviations.get(i);
             String scope = deviation.getScope();
             for (int j = 0; j < subscriptions.size(); j++) {
                 Subscription subscription = subscriptions.get(j);
@@ -219,9 +219,9 @@ public class DeviationService extends IntentService {
      *
      * @param deviations
      */
-    private void removeOldDeviations(ArrayList<DeviationDTO> deviations) {
+    private void removeOldDeviations(ArrayList<Deviation> deviations) {
         for (int i = 0; i < deviations.size(); i++) {
-            DeviationDTO deviation = deviations.get(i);
+            Deviation deviation = deviations.get(i);
             if (deviation.getToDate() < System.currentTimeMillis()) {
                 SQLiteContext.getInstance().getController().deleteDeviation(deviation);
             }

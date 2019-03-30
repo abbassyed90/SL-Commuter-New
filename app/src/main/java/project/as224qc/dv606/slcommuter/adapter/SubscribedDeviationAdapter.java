@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import project.as224qc.dv606.slcommuter.R;
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 
 /**
  * @author Abbas Syed
@@ -17,7 +17,7 @@ import project.as224qc.dv606.slcommuter.model.DeviationDTO;
  */
 public class SubscribedDeviationAdapter extends RecyclerView.Adapter<SubscribedDeviationAdapter.ViewHolder> {
 
-    private ArrayList<DeviationDTO> deviations = new ArrayList<>();
+    private ArrayList<Deviation> deviations = new ArrayList<>();
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -26,7 +26,7 @@ public class SubscribedDeviationAdapter extends RecyclerView.Adapter<SubscribedD
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DeviationDTO deviation = deviations.get(position);
+        Deviation deviation = deviations.get(position);
         holder.scopeTextView.setText(deviation.getScope());
         holder.detailsTextView.setText(deviation.getDetails());
     }
@@ -36,7 +36,7 @@ public class SubscribedDeviationAdapter extends RecyclerView.Adapter<SubscribedD
         return deviations.size();
     }
 
-    public ArrayList<DeviationDTO> getDeviation() {
+    public ArrayList<Deviation> getDeviation() {
         return deviations;
     }
 

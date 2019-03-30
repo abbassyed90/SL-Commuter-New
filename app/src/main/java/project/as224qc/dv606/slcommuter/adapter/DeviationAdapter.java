@@ -9,45 +9,32 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import project.as224qc.dv606.slcommuter.OnItemClickListener;
 import project.as224qc.dv606.slcommuter.R;
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.interfaces.OnClickDeviationListener;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 
 /**
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter.adapter
  */
-
 public class DeviationAdapter extends RecyclerView.Adapter<DeviationAdapter.ViewHolder> {
 
-    private final SimpleDateFormat dateFormat;
-    private ArrayList<DeviationDTO> deviations = new ArrayList<>();
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private List<Deviation> deviations = new ArrayList<>();
 
-
-    public DeviationAdapter() {
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    }
+    private OnClickDeviationListener onClickDeviationListener;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_deviation, parent, false);
-        final ViewHolder viewHolder = new ViewHolder(view);
-
-        // TODO fix this
-        //viewHolder.itemView.setOnClickListener(new OnItemClickListener(viewHolder));
-
-        return viewHolder;
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_deviation, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DeviationDTO deviation = deviations.get(position);
-
-        holder.headerTextView.setText(deviation.getHeader());
-        holder.scopeTextView.setText(deviation.getScope());
-        holder.detailsTextView.setText(deviation.getDetails());
-        holder.createdTextView.setText(dateFormat.format(new Date(deviation.getCreated())));
+        holder.bind(deviations.get(position));
     }
 
     @Override
@@ -55,8 +42,18 @@ public class DeviationAdapter extends RecyclerView.Adapter<DeviationAdapter.View
         return deviations.size();
     }
 
-    public ArrayList<DeviationDTO> getDeviations() {
-        return deviations;
+    public void addDeviations(List<Deviation> deviations){
+        this.deviations.clear();
+        this.deviations.addAll(deviations);
+        notifyDataSetChanged();
+    }
+
+    public Deviation getDeviation(int index){
+        return new Deviation(deviations.get(index));
+    }
+
+    public void setOnClickDeviationListener(OnClickDeviationListener onClickDeviationListener) {
+        this.onClickDeviationListener = onClickDeviationListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,10 +65,26 @@ public class DeviationAdapter extends RecyclerView.Adapter<DeviationAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
-            headerTextView = (TextView) itemView.findViewById(R.id.headerTextView);
-            scopeTextView = (TextView) itemView.findViewById(R.id.scopeTextView);
-            detailsTextView = (TextView) itemView.findViewById(R.id.detailTextView);
-            createdTextView = (TextView) itemView.findViewById(R.id.createdTextView);
+            headerTextView = itemView.findViewById(R.id.headerTextView);
+            scopeTextView = itemView.findViewById(R.id.scopeTextView);
+            detailsTextView = itemView.findViewById(R.id.detailTextView);
+            createdTextView = itemView.findViewById(R.id.createdTextView);
+
+            itemView.setOnClickListener(new OnItemClickListener<ViewHolder>(this) {
+                @Override
+                public void onClickItem(int position, ViewHolder viewHolder) {
+                    if(onClickDeviationListener != null){
+                        onClickDeviationListener.onClickDeviation(getDeviation(position));
+                    }
+                }
+            });
+        }
+
+        private void bind(Deviation deviation) {
+            headerTextView.setText(deviation.getHeader());
+            scopeTextView.setText(deviation.getScope());
+            detailsTextView.setText(deviation.getDetails());
+            createdTextView.setText(dateFormat.format(new Date(deviation.getCreated())));
         }
     }
 }

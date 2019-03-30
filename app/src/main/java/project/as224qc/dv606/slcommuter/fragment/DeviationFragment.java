@@ -19,6 +19,8 @@ import project.as224qc.dv606.slcommuter.R;
 import project.as224qc.dv606.slcommuter.adapter.DeviationAdapter;
 import project.as224qc.dv606.slcommuter.event.DeviationEvent;
 import project.as224qc.dv606.slcommuter.event.OnItemClickEvent;
+import project.as224qc.dv606.slcommuter.interfaces.OnClickDeviationListener;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 import project.as224qc.dv606.slcommuter.util.EmptyStateHelper;
 import project.as224qc.dv606.slcommuter.util.IntentHelper;
 import project.as224qc.dv606.slcommuter.util.Utils;
@@ -30,7 +32,7 @@ import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter.fragment
  */
-public class DeviationFragment extends Fragment {
+public class DeviationFragment extends Fragment implements OnClickDeviationListener {
 
     private DeviationAdapter adapter;
     private ExtendedRecyclerView recyclerView;
@@ -58,12 +60,14 @@ public class DeviationFragment extends Fragment {
     public void onResume() {
         super.onResume();
         EventBus.getInstance().register(this);
+        adapter.setOnClickDeviationListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         EventBus.getInstance().unregister(this);
+        adapter.setOnClickDeviationListener(null);
     }
 
     @Nullable
@@ -92,17 +96,14 @@ public class DeviationFragment extends Fragment {
     @Subscribe
     public void deviationEvent(DeviationEvent event) {
         if (event.isSuccess()) {
-            adapter.getDeviations().addAll(event.getDeviations());
+            adapter.addDeviations(event.getDeviations());
         } else {
             emptyStateHelper.showNetworkErrorState(getActivity());
         }
-
-        adapter.notifyDataSetChanged();
     }
 
-    @Subscribe
-    public void onItemClickEvent(OnItemClickEvent event) {
-        IntentHelper.startDeviationDetailActivity(getActivity(), adapter.getDeviations().get(event.getPosition()));
+    @Override
+    public void onClickDeviation(Deviation deviation) {
+        IntentHelper.startDeviationDetailActivity(getActivity(),deviation);
     }
-
 }

@@ -9,18 +9,18 @@ import com.google.gson.annotations.SerializedName;
  * @author Abbas Syed
  * @packageName project.as224qc.dv606.slcommuter.model
  */
-public class DeviationDTO implements Parcelable {
+public class Deviation implements Parcelable {
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<DeviationDTO> CREATOR = new Parcelable.Creator<DeviationDTO>() {
+    public static final Parcelable.Creator<Deviation> CREATOR = new Parcelable.Creator<Deviation>() {
         @Override
-        public DeviationDTO createFromParcel(Parcel in) {
-            return new DeviationDTO(in);
+        public Deviation createFromParcel(Parcel in) {
+            return new Deviation(in);
         }
 
         @Override
-        public DeviationDTO[] newArray(int size) {
-            return new DeviationDTO[size];
+        public Deviation[] newArray(int size) {
+            return new Deviation[size];
         }
     };
     @SerializedName("DevCaseGid")
@@ -35,11 +35,13 @@ public class DeviationDTO implements Parcelable {
     private long fromDate;
     private long toDate;
 
+    public Deviation() { }
 
-    public DeviationDTO() {
+    public Deviation(Deviation deviation){
+        this(deviation.getCreated(),deviation.getDetails(),deviation.getHeader(),deviation.getScope(),deviation.getFromDate(),deviation.getToDate());
     }
 
-    public DeviationDTO(long created, String details, String header, String scope, long fromDate, long toDate) {
+    public Deviation(long created, String details, String header, String scope, long fromDate, long toDate) {
         this.created = created;
         this.details = details;
         this.header = header;
@@ -48,7 +50,7 @@ public class DeviationDTO implements Parcelable {
         this.toDate = toDate;
     }
 
-    protected DeviationDTO(Parcel in) {
+    protected Deviation(Parcel in) {
         id = in.readLong();
         created = in.readLong();
         details = in.readString();

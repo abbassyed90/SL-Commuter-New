@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 import project.as224qc.dv606.slcommuter.model.PreviousTrip;
 import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.model.Subscription;
@@ -100,19 +100,19 @@ public class SQLiteController {
     /**
      * Insert a deviation
      *
-     * @param deviationDTO
+     * @param deviation
      */
-    public void insertDeviation(DeviationDTO deviationDTO) {
-        sqLiteDeviation.insertDeviation(deviationDTO);
+    public void insertDeviation(Deviation deviation) {
+        sqLiteDeviation.insertDeviation(deviation);
     }
 
     /**
      * Delete a deviation
      *
-     * @param deviationDTO
+     * @param deviation
      */
-    public void deleteDeviation(DeviationDTO deviationDTO) {
-        sqLiteDeviation.deleteDeviation(deviationDTO);
+    public void deleteDeviation(Deviation deviation) {
+        sqLiteDeviation.deleteDeviation(deviation);
     }
 
     /**
@@ -120,7 +120,7 @@ public class SQLiteController {
      *
      * @return
      */
-    public ArrayList<DeviationDTO> getDeviations() {
+    public ArrayList<Deviation> getDeviations() {
         return sqLiteDeviation.getDeviations();
     }
 

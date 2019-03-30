@@ -2,13 +2,12 @@ package project.as224qc.dv606.slcommuter;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 
 /**
  * Activity that shows a deviation in detail
@@ -26,7 +25,7 @@ public class DeviationDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_deviation_detail);
 
         // get deviation of site
-        DeviationDTO deviation = getIntent().getParcelableExtra(BUNDLE_DATA_DEVIATION);
+        Deviation deviation = getIntent().getParcelableExtra(BUNDLE_DATA_DEVIATION);
 
         // init views
         TextView headerTextView = (TextView) findViewById(R.id.headerTextView);

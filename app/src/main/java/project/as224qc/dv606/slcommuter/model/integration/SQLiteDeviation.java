@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 import project.as224qc.dv606.slcommuter.util.Constants;
 
 /**
@@ -47,18 +47,18 @@ public class SQLiteDeviation extends SQLiteOpenHelper {
     /**
      * Insert deviation
      *
-     * @param deviationDTO
+     * @param deviation
      */
-    public void insertDeviation(DeviationDTO deviationDTO) {
+    public void insertDeviation(Deviation deviation) {
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(DeviationEntry.COLUMN_ID, deviationDTO.getId());
-            values.put(DeviationEntry.COLUMN_DETAILS, deviationDTO.getDetails());
-            values.put(DeviationEntry.COLUMN_SCOPE, deviationDTO.getScope());
-            values.put(DeviationEntry.COLUMN_TO_DATE, deviationDTO.getToDate());
+            values.put(DeviationEntry.COLUMN_ID, deviation.getId());
+            values.put(DeviationEntry.COLUMN_DETAILS, deviation.getDetails());
+            values.put(DeviationEntry.COLUMN_SCOPE, deviation.getScope());
+            values.put(DeviationEntry.COLUMN_TO_DATE, deviation.getToDate());
 
             db.insertOrThrow(DeviationEntry.TABLE_NAME, null, values);
 
@@ -73,11 +73,11 @@ public class SQLiteDeviation extends SQLiteOpenHelper {
     /**
      * Delete a deviation
      *
-     * @param deviationDTO
+     * @param deviation
      */
-    public void deleteDeviation(DeviationDTO deviationDTO) {
+    public void deleteDeviation(Deviation deviation) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(DeviationEntry.TABLE_NAME, DeviationEntry.COLUMN_ID + "=?", new String[]{String.valueOf(deviationDTO.getId())});
+        db.delete(DeviationEntry.TABLE_NAME, DeviationEntry.COLUMN_ID + "=?", new String[]{String.valueOf(deviation.getId())});
     }
 
     /**
@@ -85,8 +85,8 @@ public class SQLiteDeviation extends SQLiteOpenHelper {
      *
      * @return -a list of deviations
      */
-    public ArrayList<DeviationDTO> getDeviations() {
-        ArrayList<DeviationDTO> deviations = new ArrayList<>();
+    public ArrayList<Deviation> getDeviations() {
+        ArrayList<Deviation> deviations = new ArrayList<>();
 
         String query = String.format("SELECT * FROM %s", DeviationEntry.TABLE_NAME);
 
@@ -118,15 +118,15 @@ public class SQLiteDeviation extends SQLiteOpenHelper {
      * @param cursor
      * @return
      */
-    private DeviationDTO parseDeviation(Cursor cursor) {
-        DeviationDTO deviationDTO = new DeviationDTO();
+    private Deviation parseDeviation(Cursor cursor) {
+        Deviation deviation = new Deviation();
 
-        deviationDTO.setId(cursor.getLong(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_ID)));
-        deviationDTO.setDetails(cursor.getString(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_DETAILS)));
-        deviationDTO.setScope(cursor.getString(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_SCOPE)));
-        deviationDTO.setToDate(cursor.getLong(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_TO_DATE)));
+        deviation.setId(cursor.getLong(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_ID)));
+        deviation.setDetails(cursor.getString(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_DETAILS)));
+        deviation.setScope(cursor.getString(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_SCOPE)));
+        deviation.setToDate(cursor.getLong(cursor.getColumnIndexOrThrow(DeviationEntry.COLUMN_TO_DATE)));
 
-        return deviationDTO;
+        return deviation;
     }
 
     private static class DeviationEntry {

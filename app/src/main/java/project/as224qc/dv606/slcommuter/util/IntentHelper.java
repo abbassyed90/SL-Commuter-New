@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import project.as224qc.dv606.slcommuter.DeviationDetailActivity;
 import project.as224qc.dv606.slcommuter.StationSearchActivity;
 import project.as224qc.dv606.slcommuter.TripDetailActivity;
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 import project.as224qc.dv606.slcommuter.model.Site;
 import project.as224qc.dv606.slcommuter.model.TripDTO;
 
@@ -48,7 +48,7 @@ public class IntentHelper {
      * @param context
      * @param deviation
      */
-    public static void startDeviationDetailActivity(Context context, DeviationDTO deviation) {
+    public static void startDeviationDetailActivity(Context context, Deviation deviation) {
         Intent intent = new Intent(context, DeviationDetailActivity.class);
         intent.putExtra(DeviationDetailActivity.BUNDLE_DATA_DEVIATION, deviation);
         context.startActivity(intent);

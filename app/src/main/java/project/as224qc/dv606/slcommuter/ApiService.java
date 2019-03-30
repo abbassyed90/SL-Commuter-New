@@ -1,7 +1,6 @@
 package project.as224qc.dv606.slcommuter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -19,7 +18,7 @@ import project.as224qc.dv606.slcommuter.event.DeviationEvent;
 import project.as224qc.dv606.slcommuter.event.SiteEvent;
 import project.as224qc.dv606.slcommuter.event.TimeEvent;
 import project.as224qc.dv606.slcommuter.event.TripEvent;
-import project.as224qc.dv606.slcommuter.model.DeviationDTO;
+import project.as224qc.dv606.slcommuter.model.Deviation;
 import project.as224qc.dv606.slcommuter.model.Leg;
 import project.as224qc.dv606.slcommuter.model.RecyclerViewHeaderItem;
 import project.as224qc.dv606.slcommuter.model.RecyclerViewItem;
@@ -60,13 +59,13 @@ public class ApiService {
                     SimpleDateFormat dateFormat = new SimpleDateFormat();
 
                     int length = jsonArray.length();
-                    ArrayList<DeviationDTO> deviations = new ArrayList<>(length);
+                    ArrayList<Deviation> deviations = new ArrayList<>(length);
 
                     for (int i = 0; i < length; i++) {
                         JSONObject jsonDeviation = jsonArray.getJSONObject(i);
 
                         // user gson to parse json
-                        DeviationDTO deviation = gson.fromJson(jsonDeviation.toString(), DeviationDTO.class);
+                        Deviation deviation = gson.fromJson(jsonDeviation.toString(), Deviation.class);
 
                         // parse date
                         long created = parseDate(jsonDeviation.getString("Created"), dateFormat);
