@@ -2,6 +2,7 @@ package project.as224qc.dv606.slcommuter.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Pair;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -78,11 +79,33 @@ public class Site implements Parcelable {
     }
 
     public Site copy() {
-        Site site = new Site();
+        final Site site = new Site();
 
         site.setName(name);
         site.setSiteId(siteId);
 
         return site;
+    }
+
+    public char getFirstChar(){
+        return name.charAt(0);
+    }
+
+    public boolean hasAdditionalInformation(){
+        return name.contains("(");
+    }
+
+    public String getSiteName(){
+        if(hasAdditionalInformation()){
+            return name.substring(0, getName().indexOf("(")).trim();
+        }
+        return name;
+    }
+
+    public String getAdditionalInformation(){
+        if(hasAdditionalInformation()){
+            return name.substring(getName().indexOf("(")).trim();
+        }
+        return "";
     }
 }

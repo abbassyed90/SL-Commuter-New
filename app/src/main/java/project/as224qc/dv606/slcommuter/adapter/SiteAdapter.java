@@ -7,6 +7,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,24 +80,18 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteViewHolder
             });
         }
 
-        public void bind(Site site){
-            String stationName = site.getName();
-            if (stationName.contains("(")) {
-                String secondaryInformation = null;
-                secondaryInformation = stationName.substring(stationName.indexOf("(")).trim();
-                stationName = stationName.substring(0, stationName.indexOf("(")).trim();
-
-                stationTextView.setText(createSpannableString(itemView.getContext(), stationName, secondaryInformation));
-            } else {
+        private void bind(Site site){
+            if(site.hasAdditionalInformation()){
+                stationTextView.setText(createSpannableString(itemView.getContext(), site.getSiteName(), site.getAdditionalInformation()));
+            }else{
                 stationTextView.setText(site.getName().trim());
             }
-
-            stationNameTextView.setText(String.valueOf(site.getName().charAt(0)));
+            stationNameTextView.setText(String.valueOf(site.getFirstChar()));
         }
 
         private CharSequence createSpannableString(Context context, String primaryInformation, String secondaryInformation) {
-            SpannableString primarySpannable = new SpannableString(primaryInformation);
-            SpannableString secondarySpannable = new SpannableString(secondaryInformation);
+            final SpannableString primarySpannable = new SpannableString(primaryInformation);
+            final SpannableString secondarySpannable = new SpannableString(secondaryInformation);
 
             secondarySpannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, R.color.grey)), 0, secondarySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
