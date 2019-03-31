@@ -6,17 +6,16 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_empty_state_network_error"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_station_search" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -25,12 +24,13 @@
         android:gravity="center"
         android:paddingLeft="@dimen/default_margin"
         android:paddingRight="@dimen/default_margin"
+        android:text="@string/empty_state_title_network_error"
         android:textAllCaps="true"
         android:textColor="@color/grey"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:text="@string/empty.state.title.site" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 </android.support.constraint.ConstraintLayout>

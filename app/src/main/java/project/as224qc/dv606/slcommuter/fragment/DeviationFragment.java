@@ -4,31 +4,25 @@ package project.as224qc.dv606.slcommuter.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
-import project.as224qc.dv606.slcommuter.ApiService;
 import project.as224qc.dv606.slcommuter.EventBus;
 import project.as224qc.dv606.slcommuter.R;
 import project.as224qc.dv606.slcommuter.adapter.DeviationAdapter;
 import project.as224qc.dv606.slcommuter.contract.DeviationContract;
 import project.as224qc.dv606.slcommuter.event.DeviationEvent;
-import project.as224qc.dv606.slcommuter.event.OnItemClickEvent;
 import project.as224qc.dv606.slcommuter.interfaces.OnClickDeviationListener;
 import project.as224qc.dv606.slcommuter.model.Deviation;
 import project.as224qc.dv606.slcommuter.presenter.DeviationPresenter;
-import project.as224qc.dv606.slcommuter.util.EmptyStateHelper;
 import project.as224qc.dv606.slcommuter.util.IntentHelper;
-import project.as224qc.dv606.slcommuter.util.Utils;
-import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
 
 /**
  * A fragment that shows all current deviations
@@ -38,11 +32,11 @@ import project.as224qc.dv606.slcommuter.widget.ExtendedRecyclerView;
  */
 public class DeviationFragment extends Fragment implements DeviationContract.View,OnClickDeviationListener {
 
-    private DeviationAdapter adapter;
-    private ExtendedRecyclerView recyclerView;
-    private EmptyStateHelper emptyStateHelper;
-
     private DeviationPresenter presenter;
+    private DeviationAdapter adapter;
+
+    private View progressBar;
+    private View networkErrorView;
 
     public static DeviationFragment getInstance() {
         return new DeviationFragment();
@@ -60,7 +54,6 @@ public class DeviationFragment extends Fragment implements DeviationContract.Vie
     public void onDestroy() {
         super.onDestroy();
         adapter = null;
-        emptyStateHelper = null;
     }
 
     @Override
@@ -87,17 +80,13 @@ public class DeviationFragment extends Fragment implements DeviationContract.Vie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // init empty state and empty state helper
-        View emptyState = ((ViewStub) view.findViewById(R.id.viewStub)).inflate();
-        emptyStateHelper = new EmptyStateHelper(emptyState);
-        emptyStateHelper.showLoadingScreen(getActivity(), true);
+        progressBar = view.findViewById(R.id.progressBar);
+        networkErrorView = view.findViewById(R.id.networkErrorView);
 
-        // init recyclerview
-        recyclerView = (ExtendedRecyclerView) view.findViewById(R.id.recyclerview);
+        final RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-        recyclerView.setEmptyView(emptyState);
     }
 
     @Subscribe
@@ -112,7 +101,7 @@ public class DeviationFragment extends Fragment implements DeviationContract.Vie
 
     @Override
     public void displayProgressBar(boolean show) {
-        // TODO add progressbar
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -122,6 +111,6 @@ public class DeviationFragment extends Fragment implements DeviationContract.Vie
 
     @Override
     public void displayNetworkError(boolean show) {
-        // TODO add network error state
+        networkErrorView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }
