@@ -66,7 +66,7 @@ public class SearchStationPresenter implements SearchSiteContract.Presenter {
     /**
      * Async task used to query sqlite for previous selected sites
      */
-    private class PreviousSiteFetchAsyncTask extends AsyncTask<Void, Void, ArrayList<Site>> {
+    private class PreviousSiteFetchAsyncTask extends AsyncTask<Void, Void, List<Site>> {
 
         private WeakReference<SearchSiteContract.View> viewWeakReference;
 
@@ -83,17 +83,22 @@ public class SearchStationPresenter implements SearchSiteContract.Presenter {
         }
 
         @Override
-        protected ArrayList<Site> doInBackground(Void... params) {
+        protected List<Site> doInBackground(Void... params) {
             return SQLiteContext.getInstance().getController().getStations();
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Site> sites) {
+        protected void onPostExecute(List<Site> sites) {
             super.onPostExecute(sites);
             if(viewWeakReference.get() != null){
-                viewWeakReference.get().updateAdapter(sites);
                 viewWeakReference.get().displayProgressBar(false);
-                viewWeakReference.get().displayEmptyStateView(false);
+
+                if (!sites.isEmpty()) {
+                    viewWeakReference.get().updateAdapter(sites);
+                    viewWeakReference.get().displayEmptyStateView(false);
+                } else {
+                    viewWeakReference.get().displayEmptyStateView(true);
+                }
             }
         }
     }

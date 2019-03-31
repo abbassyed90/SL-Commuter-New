@@ -42,33 +42,14 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"/>
 
-        <LinearLayout
+        <project.as224qc.dv606.slcommuter.widget.EmptyStateView
             android:id="@+id/emptyStateView"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:image="@drawable/ic_station_search"
+            app:title="@string/empty.state.title.site"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_station_search" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@string/font.regular.condensed"
-                android:fontFeatureSettings="smcp"
-                android:textColor="@color/grey"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:paddingLeft="@dimen/default_margin"
-                android:text="@string/empty.state.title.site" />
-
-        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>
